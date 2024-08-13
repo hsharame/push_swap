@@ -15,7 +15,6 @@
 #include <stddef.h>
 #include "libft.h"
 
-
 int	count_words(const char *s, char c)
 {
 	int	count;
@@ -70,7 +69,7 @@ int	put_split(char const *s, char c, char **res)
 	int	start;
 
 	i = 0;
-	res[0]= "a";
+	res[0] = "a";
 	count = 1;
 	while (s[i] != '\0')
 	{
