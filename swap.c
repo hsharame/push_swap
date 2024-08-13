@@ -17,7 +17,7 @@ void	ft_swap(t_stack *stack)
 	int	tmp;
 
 	if (stack == NULL || stack->next == NULL)
-		return;
+		return ;
 	tmp = stack->nbr;
 	stack->nbr = stack->next->nbr;
 	stack->next->nbr = tmp;
@@ -32,7 +32,7 @@ void	sa(t_stack **stack_a)
 	ft_printf("sa\n");
 }
 
-void	sa(t_stack **stack_b)
+void	sb(t_stack **stack_b)
 {
 	ft_swap(*stack_b);
 	ft_printf("sb\n");

@@ -12,68 +12,73 @@
 
 #include "push_swap.h"
 
-int check_sorted(t_stack *stack)
+char	**argv_split(char *argv[])
 {
-    while (stack->next != NULL)
-    {
-        if (stack->nbr > stack->next->nbr)
-            return (0);
-        stack = stack->next;
-    }
-    return (1);
+	char	**result;
+
+	result = ft_split(argv[1], ' ');
+	if (!result)
+		return (NULL);
+	return (result);
 }
 
-void    push_swap(t_stack **stack_a, t_stack **stack_b, int size)
+int	argc_split(char	*argv[])
 {
-    if (size == 2 && !check_sorted(*stack_a))
-        sa(stack_a);
-    /*else if (size == 3)
-        tiny_sort(stack_a);*/
-    else if (size > 3 && !check_sorted(*stack_a))
-        quicksort(stack_a, stack_b);
+	int	i;
+
+	i = 0;
+	while (argv[i] != NULL)
+		i++;
+	return (i);
 }
 
-void    stack_position(t_stack **stack)
+int	main(int argc, char *argv[])
 {
-    int i;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	int		size;
 
-    i = 1;
-    while ((*stack)->next != NULL)
-    {
-        (*stack)->pos = i;
-        i++;
-        stack = (*stack)->next;
-    }
+	if (argc == 1)
+		return (0);
+	if ((argc >= 3 && !check_input(argv))
+		|| (argc == 2 && is_word(argv[1])))
+		return (write(2, "Error\n", 6));
+	if (argc == 2 && check_one(argv[1]))
+		return (0);
+	else if (argc == 2 && check_argv(argv[1]))
+		return (split_argv(argv));
+	stack_a = fill_stack(argc, argv);
+	stack_b = NULL;
+	size = stack_size(stack_a);
+	stack_index(stack_a, size + 1);
+	push_swap(&stack_a, &stack_b, size);
+	free_stack(&stack_a);
+	free_stack(&stack_b);
+	return (0);
 }
 
-void    quicksort(t_stack **stack_a, t_stack **stack_b)
+int	split_argv(char *argv[])
 {
-    int pivot;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	int		size;
+	int		split_argc;
+	char	**split_argv;
 
-    if (stack_size(*stack_a) <= 1)
-        return;
-    pivot = get_pivot(*stack_a);
-}
-
-int main(int argc, char *argv[])
-{
-    t_stack *stack_a;
-    t_stack *stack_b;
-    int     size;
-
-    if (argc < 2 || (argc == 2 && !check_argv(argv[1])))
-        return (1);
-    if (!check_input(argc, argv))
-        ft_error(NULL, NULL);
-    if (argc == 2 && check_argv(argv[1]))
-        argv = ft_split(argv[1],' ');
-    stack_a = fill_stack(argc, argv);
-    stack_b = NULL;
-    size = stack_size(stack_a);
-    stack_index(stack_a, size + 1);
-    stack_position(stack_a);
-    push_swap(&stack_a, &stack_b, size);
-    free_stack(&stack_a);
-    free_stack(&stack_b);
-    return (0);
+	split_argv = argv_split(argv);
+	split_argc = argc_split(split_argv);
+	if (!check_input(split_argv))
+	{
+		free_argv(split_argv, split_argc);
+		return (write(2, "Error\n", 6));
+	}
+	stack_a = fill_stack(split_argc, split_argv);
+	stack_b = NULL;
+	size = stack_size(stack_a);
+	stack_index(stack_a, size + 1);
+	push_swap(&stack_a, &stack_b, size);
+	free_stack(&stack_a);
+	free_stack(&stack_b);
+	free_argv(split_argv, split_argc);
+	return (0);
 }

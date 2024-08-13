@@ -14,23 +14,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include "libft.h"
-/*
-void    *ft_memcpy(void *dest, const void *src, size_t n)
-{
-        char            *d;
-        const char      *s;
 
-        d = (char *)dest;
-        s = (const char *)src;
-        while (n)
-        {
-                *d = *s;
-                d++;
-                s++;
-                n--;
-        }
-        return (dest);
-}*/
 
 int	count_words(const char *s, char c)
 {
@@ -59,14 +43,14 @@ char	**ft_result(char const *s, char c)
 	char	**result;
 
 	count = count_words(s, c);
-	result = (char **)malloc(sizeof(char *) * (count + 1));
+	result = (char **)malloc(sizeof(char *) * (count + 2));
 	if (!s || !result)
 		return (NULL);
-	result[count] = NULL;
+	result[count + 1] = NULL;
 	return (result);
 }
-/*
-void	ft_free(char **result, int count)
+
+/*void	ft_free(char **result, int count)
 {
 	int	i;
 
@@ -86,7 +70,8 @@ int	put_split(char const *s, char c, char **res)
 	int	start;
 
 	i = 0;
-	count = 0;
+	res[0]= "a";
+	count = 1;
 	while (s[i] != '\0')
 	{
 		if (s[i] != c)
@@ -117,9 +102,23 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (result);
 }
+
 /*
-int main()
+int	count_split(char *s)
 {
-	char **result = ft_split("      split       this for   me  !       ", ' ');
-	printf ("%s\n", result[1]);
-}*/
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+
+	}
+}
+char	**ft_split(char *s, char c)
+{
+	char	**result;
+	int		wc;
+
+	wc = count_split(s);
+}
+*/

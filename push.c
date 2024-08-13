@@ -17,7 +17,7 @@ void	ft_push(t_stack **src, t_stack **dest)
 	t_stack	*tmp;
 
 	if (*src == NULL)
-		return;
+		return ;
 	tmp = (*src)->next;
 	(*src)->next = *dest;
 	*dest = *src;
